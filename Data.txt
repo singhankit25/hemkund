@@ -1,0 +1,185 @@
+#1a stack
+import matplotlib.pyplot as plt
+categories = ['A','B','C','D']
+men=[20,71,23,21]
+women=[12,23,12,13]
+fig,ax = plt.subplots()
+ax.bar(categories,men,label='Men')
+ax.bar(categories,women,label='Women')
+ax.set_title("Gender")
+ax.set_title("Score")
+ax.legend()
+plt.show()
+
+#1b Scatter and bubble
+import matplotlib.pyplot as plt
+x=[1,2,3,4,5]
+y=[10,22,31,11,43]
+sizes=[20,50,80,200,500]
+plt.scatter(x,y,color='blue',s=sizes,marker='o',label='scatter Plot')
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.legend()
+plt.show()
+
+#2a hist,box
+import matplotlib.pyplot as plt
+import numpy as np
+data=np.random.randn(1000)
+fig,ax = plt.subplots()
+ax.hist(data,bins=10)
+plt.show()
+
+data = np.random.randn(100)
+ax.boxplot(data)
+plt.show()
+
+#2b Pie
+import matplotlib.pyplot as plt
+sizes=[15,30,30,25]
+labels =['Apple','Grapes','Banana','Kiwi']
+plt.pie(sizes,labels=labels)
+plt.show()
+
+#3aLinear Plotting
+#3a linear line
+import matplotlib.pyplot as plt
+x=[1,2,3,4,5]
+y=[2,4,6,8,10]
+fig,ax = plt.subplots()
+ax.plot(x,y,linestyle='-',marker= 'o',color='b',label='y=2x')
+plt.show()
+
+#3b Format
+#3b line format linear
+import matplotlib.pyplot as plt
+x=[1,2,3,4,5]
+y=[2,4,6,8,10]
+fig,ax = plt.subplots()
+ax.plot(x,y,linestyle='--',marker='s',linewidth=2,markersize=8,label='y=2x')
+plt.show()
+
+#4 Seaborn
+import matplotlib.pyplot as plt
+import seaborn as sns
+tips = sns.load_dataset("tips")
+sns.set(style='whitegrid')
+sns.scatterplot(x='total_bill', y='tip', hue='sex', style='time', size='size', data=tips)
+plt.show()
+
+# 5a bokeh
+#5a bokeh
+from bokeh.plotting import figure,output_file,show
+output_file = ("gfg.html")
+graph = figure(title="bokeh Line Graph")
+x=[1,2,3,4,5]
+y=[1,6,9,5,6]
+graph.line(x,y)
+show(graph)
+
+#5b Radar
+import numpy as np
+import matplotlib.pyplot as plt
+labels = ['A', 'B', 'C', 'D', 'E']
+stats = [20, 34, 30, 35, 27]
+num_vars = len(labels)
+angles = np.linspace(0, 2 * np.pi, num_vars, endpoint=False).tolist()
+stats += stats[:1]
+angles += angles[:1]
+fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
+ax.fill(angles, stats, color='blue', alpha=0.25)
+ax.plot(angles, stats, color='blue', linewidth=2)
+ax.set_yticklabels([])
+ax.set_xticks(angles[:-1])
+ax.set_xticklabels(labels)
+
+plt.show()
+
+#5b Radar Alternative
+#5b bokeh
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Define the labels and values for the radar chart
+labels = ['A', 'B', 'C', 'D', 'E']
+values = [4, 3, 2, 5, 4]
+
+# Repeat the first value to close the radar chart
+values += values[:1]
+num_vars = len(labels)
+
+# Compute the angle for each axis
+angles = np.linspace(0, 2 * np.pi, num_vars, endpoint=False).tolist()
+angles += angles[:1]
+
+# Create the radar chart
+fig, ax = plt.subplots(subplot_kw=dict(polar=True))
+
+# Draw the radar chart with the data
+ax.plot(angles, values, 'b', linewidth=2, linestyle='solid')
+ax.fill(angles, values, 'b', alpha=0.2)
+
+# Add the labels
+ax.set_xticks(angles[:-1])
+ax.set_xticklabels(labels)
+
+# Show the plot
+plt.show()
+
+
+#6 3D
+import plotly.express as px
+import pandas as pd
+
+# Create a DataFrame with minimal data
+df = pd.DataFrame({
+    'x': [1, 2, 3, 4, 5],
+    'y': [10, 11, 12, 13, 14],
+    'z': [100, 110, 120, 130, 140]
+})
+
+# Create a 3D scatter plot
+fig = px.scatter_3d(df, x='x', y='y', z='z')
+
+# Show the plot
+fig.show()
+
+
+#7a time series
+import plotly.express as px
+import pandas as pd
+df = pd.DataFrame({
+  'Date':pd.date_range(start='2024-01-01',periods=10,freq='D'),
+  'Value':[10,15,29,18,11,17,19,29,30,17]
+})
+fig = px.line(df,x='Date',y='Value',title="TimeSeries Plot")
+fig.show()
+
+
+#7b Maps
+import plotly.graph_objs as go 
+trace = go.Scattergeo(
+  lon = [-90,-80,15,60],
+  lat=[40.80,30,50,20],
+  mode='markers'
+)
+layout = go.Layout(title='Map Plot')
+fig = go.Figure(data=[trace],layout=layout)
+fig.show()
+
+#8 Correlogram AND heatmap
+#8 Correlogram
+import seaborn as sns
+import matplotlib.pyplot as plt
+iris = sns.load_dataset("iris")
+sns.pairplot(iris)
+plt.suptitle("Correlogram of Iris dataset",y=1.02)
+plt.show()
+corr = iris.select_dtypes(include=[float, int]).corr()
+sns.heatmap(corr,annot=True,cmap='coolwarm')
+plt.show()
+
+
+
+
+
